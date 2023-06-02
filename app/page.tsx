@@ -1,11 +1,13 @@
-import Image from 'next/image'
+import { HomeContent } from "./components/HomeContent";
+import { HomeFooter } from "./components/HomeFooter";
+import { HomeHeader } from "./components/HomeHeader";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="relative flex place-items-center">
-        <h2 className={`mb-3 text-2xl font-semibold`}>recipe-ai</h2>
-      </div>
+    <main>
+      <HomeHeader />
+      <HomeContent />
+      <HomeFooter />
     </main>
-  )
+  );
 }
