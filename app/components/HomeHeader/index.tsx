@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import { Logo } from "../Logo";
+import { PATHS } from "@/app/paths";
 
 type Props = {};
 
@@ -12,7 +13,7 @@ export const HomeHeader = (props: Props) => {
           <Logo />
         </Link>
         <nav className="md:ml-auto">
-          <Link href="/signin">
+          <Link href={PATHS.SIGNIN}>
             <button className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">
               Sign In
               <svg
