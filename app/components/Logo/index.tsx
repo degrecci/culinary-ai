@@ -9,7 +9,7 @@ export const Logo = () => {
         stroke="currentColor"
         stroke-linecap="round"
         stroke-linejoin="round"
-        stroke-width="2"
+        strokeWidth="2"
         className="w-10 h-10 text-white p-2 bg-red-500 rounded-full"
         viewBox="0 0 24 24"
       >
