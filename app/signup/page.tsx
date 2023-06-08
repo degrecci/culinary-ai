@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Logo } from "../components/Logo";
 import { PATHS } from "../paths";
+import { Button } from "../components/Button";
 
 export default function Login() {
   return (
@@ -51,9 +52,7 @@ export default function Login() {
               className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />
           </div>
-          <button className="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">
-            Sign up
-          </button>
+          <Button>Sign up</Button>
           <p className="text-xs text-gray-500 mt-3">
             Already have an account?{" "}
             <Link href={PATHS.SIGNIN} className="text-red-600">
