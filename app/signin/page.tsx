@@ -73,18 +73,6 @@ export default function Login() {
             </p>
           </form>
         </div>
-        <div className="hidden lg:block lg:w-3/5 lg:pr-0 pr-0">
-          <h1 className="title-font font-medium text-3xl text-gray-900">
-            Lorem ipsum
-          </h1>
-          <p className="leading-relaxed mt-4">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
-            placerat dapibus quam non pulvinar. Integer nisl lorem, varius et
-            enim sed, facilisis condimentum leo. Praesent ultricies ullamcorper
-            nisi eu pellentesque. Vestibulum magna velit, lacinia nec dapibus
-            tincidunt, varius et augue.
-          </p>
-        </div>
       </div>
     </section>
   );
