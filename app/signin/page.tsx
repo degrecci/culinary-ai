@@ -1,12 +1,14 @@
 "use client";
 
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Logo } from "../components/Logo";
 import { PATHS } from "../paths";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Button } from "../components/Button";
+import Link from "next/link";
 
 export default function Login() {
+  const router = useRouter();
   const supabase = createClientComponentClient();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -15,12 +17,11 @@ export default function Login() {
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
 
-    try {
-      await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-    } catch (e) {}
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    router.refresh();
   };
 
   return (
@@ -64,7 +65,9 @@ export default function Login() {
                 className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
-            <Button className="w-full">Sign In</Button>
+            <Button className="w-full" type="submit">
+              Sign In
+            </Button>
             <p className="text-xs text-gray-500 mt-3">
               Don't have an account?{" "}
               <Link href={PATHS.SIGNUP} className="text-red-600">
