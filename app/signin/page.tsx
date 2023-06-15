@@ -21,7 +21,7 @@ export default function Login() {
       email,
       password,
     });
-    router.refresh();
+    router.push("/recipes");
   };
 
   return (
