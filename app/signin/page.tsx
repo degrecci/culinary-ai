@@ -68,7 +68,7 @@ export default function Login() {
               Sign In
             </Button>
             <p className="text-xs text-gray-500 mt-3">
-              Don't have an account?{" "}
+              {"Don't have an account? "}
               <Link href={PATHS.SIGNUP} className="text-red-600">
                 Sign up
               </Link>
