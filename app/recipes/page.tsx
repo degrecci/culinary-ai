@@ -1,19 +1,18 @@
 "use client";
 import { Database } from "@/lib/supabase";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import React, { useEffect } from "react";
 import { Navbar } from "../components/Navbar";
 import Image from "next/image";
+import { supabaseClient } from "@/services/supabase";
 
 type Props = {};
 type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
 export default function Recipes(props: Props) {
-  const supabase = createClientComponentClient<Database>();
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
 
   const getRecipes = async () => {
-    const { data } = await supabase.from("recipes").select("*");
+    const { data } = await supabaseClient.from("recipes").select("*");
 
     if (data) {
       return setRecipes(data);

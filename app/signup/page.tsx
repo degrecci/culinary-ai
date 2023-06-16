@@ -4,12 +4,11 @@ import Link from "next/link";
 import { Logo } from "../components/Logo";
 import { PATHS } from "../paths";
 import { Button } from "../components/Button";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
+import { supabaseClient } from "@/services/supabase";
 
 export default function Login() {
   const router = useRouter();
-  const supabase = createClientComponentClient();
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -18,7 +17,7 @@ export default function Login() {
     const password = e.currentTarget.password.value;
     const username = e.currentTarget.username.value;
 
-    await supabase.auth.signUp({
+    await supabaseClient.auth.signUp({
       email,
       password,
       options: {
