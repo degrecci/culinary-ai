@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ButtonHTMLAttributes } from "react";
 import { Logo } from "../Logo";
 import Link from "next/link";
 
@@ -20,7 +20,7 @@ const Navbar = ({ children, className, ...props }: NavbarProps) => {
   );
 };
 
-interface NavBarItemProps extends React.HTMLAttributes<HTMLButtonElement> {
+interface NavBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
 }
 
