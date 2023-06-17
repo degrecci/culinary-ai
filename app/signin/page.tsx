@@ -20,7 +20,7 @@ export default function Login() {
       email,
       password,
     });
-    router.push("/recipes");
+    router.push("/dashboard");
   };
 
   return (
