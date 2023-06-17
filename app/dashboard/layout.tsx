@@ -2,7 +2,7 @@
 import { supabaseClient } from "@/services/supabase";
 import { ExitIcon } from "@/assets/icons/exit-arrow";
 import { Navbar } from "../components/Navbar";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function DashboardLayout({
@@ -11,21 +11,22 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<{ id?: string; email?: string }>({});
-  const getUser = async () => {
+  const getUser = useCallback(async () => {
     const {
-      data: { session },
-    } = await supabaseClient.auth.getSession();
+      data: { user },
+    } = await supabaseClient.auth.getUser();
+    console.log(user);
 
-    if (!session || !session.user) {
+    if (!user) {
       return setUser({});
     }
 
-    setUser(session.user);
-  };
+    setUser(user);
+  }, []);
 
   useEffect(() => {
     getUser();
-  });
+  }, [getUser]);
 
   return (
     <>
