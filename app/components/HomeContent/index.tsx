@@ -3,9 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { Button } from "../Button";
 
-type Props = {};
-
-export const HomeContent = (props: Props) => {
+export const HomeContent = () => {
   return (
     <section className="text-gray-600 bg-white body-font">
       <div className="container px-5 py-24 mx-auto">

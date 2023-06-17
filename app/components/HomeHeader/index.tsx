@@ -4,9 +4,7 @@ import { Logo } from "../Logo";
 import { PATHS } from "@/app/paths";
 import { Navbar } from "../Navbar";
 
-type Props = {};
-
-export const HomeHeader = (props: Props) => {
+export const HomeHeader = () => {
   return (
     <header className="text-gray-600 bg-gray-100 body-font">
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">

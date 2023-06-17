@@ -9,7 +9,10 @@ interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {
 
 const Navbar = ({ children, className, ...props }: NavbarProps) => {
   return (
-    <header className={`${className} text-gray-600 bg-gray-100 body-font`}>
+    <header
+      className={`${className} text-gray-600 bg-gray-100 body-font`}
+      {...props}
+    >
       <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
         <Link href="/dashboard">
           <Logo />

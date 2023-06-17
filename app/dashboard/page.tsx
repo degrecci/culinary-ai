@@ -1,14 +1,12 @@
 "use client";
 import { Database } from "@/lib/supabase";
 import React, { useEffect } from "react";
-import { Navbar } from "../../components/Navbar";
 import Image from "next/image";
 import { supabaseClient } from "@/services/supabase";
 
-type Props = {};
 type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
-export default function Dashboard(props: Props) {
+export default function Dashboard() {
   const [recipes, setRecipes] = React.useState<Recipe[]>([]);
 
   const getRecipes = async () => {
