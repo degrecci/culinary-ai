@@ -26,3 +26,10 @@ export const Secondary: Story = {
     children: "Button",
   },
 };
+
+export const Loading: Story = {
+  args: {
+    children: "Button",
+    isLoading: true,
+  },
+};

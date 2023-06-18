@@ -1,14 +1,17 @@
 import React, { ButtonHTMLAttributes } from "react";
+import { Loader } from "../Loader";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   secondary?: boolean;
   children: React.ReactNode;
   onClick?: () => void;
   className?: string;
+  isLoading?: boolean;
 }
 
 export const Button = ({
   secondary = false,
+  isLoading = false,
   children,
   className,
   ...props
@@ -24,7 +27,7 @@ export const Button = ({
       }`}
       {...props}
     >
-      {children}
+      {isLoading ? <Loader /> : children}
     </button>
   );
 };

@@ -27,20 +27,31 @@ export const SignupForm = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(validationSchema),
   });
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const handleSignUp = async (data: FormValues) => {
     const { email, password, username } = data;
-    await supabaseClient.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-        data: {
-          username,
+
+    try {
+      setIsLoading(true);
+      await supabaseClient.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${location.origin}/auth/callback`,
+          data: {
+            username,
+          },
         },
-      },
-    });
-    router.refresh();
+      });
+
+      router.refresh();
+    } catch (e) {
+      console.error(e);
+      return;
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const errorMessagesClasses = "text-xs text-red-600 mt-1";
@@ -80,7 +91,14 @@ export const SignupForm = () => {
           <p className={errorMessagesClasses}>{errors.password?.message}</p>
         )}
       </div>
-      <Button type="submit">Sign up</Button>
+      <Button
+        type="submit"
+        className="w-full"
+        isLoading={isLoading}
+        disabled={isLoading}
+      >
+        Sign up
+      </Button>
     </form>
   );
 };
