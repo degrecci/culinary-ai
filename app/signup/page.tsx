@@ -5,7 +5,7 @@ import { Logo } from "../components/Logo";
 import { PATHS } from "../paths";
 import { SignupForm } from "./Form";
 
-export default function Login() {
+export default function SignUp() {
   return (
     <section className="text-gray-600 body-font">
       <div className="container h-screen px-5 py-24 mx-auto flex flex-wrap items-center">

@@ -45,7 +45,7 @@ export const SignupForm = () => {
         },
       });
 
-      router.refresh();
+      router.push("/signup/submitted");
     } catch (e) {
       console.error(e);
       return;
