@@ -7,7 +7,7 @@ import { Button } from "../components/Button";
 import Link from "next/link";
 import { supabaseClient } from "@/services/supabase";
 
-export default function Login() {
+export default function SignIn() {
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -16,11 +16,18 @@ export default function Login() {
     const email = e.currentTarget.email.value;
     const password = e.currentTarget.password.value;
 
-    await supabaseClient.auth.signInWithPassword({
-      email,
-      password,
-    });
-    router.push("/dashboard");
+    try {
+      const data = await supabaseClient.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (!data.error) {
+        router.push("/dashboard");
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (

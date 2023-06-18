@@ -15,10 +15,9 @@ export default function DashboardLayout({
     const {
       data: { user },
     } = await supabaseClient.auth.getUser();
-    console.log(user);
 
     if (!user) {
-      return setUser({});
+      return (window.location.href = "/signin");
     }
 
     setUser(user);
