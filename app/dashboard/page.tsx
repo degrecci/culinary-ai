@@ -3,6 +3,7 @@ import { Database } from "@/lib/supabase";
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { supabaseClient } from "@/services/supabase";
+import RecipeModal from "./components/RecipeModal";
 
 type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
@@ -26,7 +27,7 @@ export default function Dashboard() {
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
         <div className="flex flex-wrap -m-4">
-          <p>Recipes</p>
+          <RecipeModal />
           {recipes.map((recipe) => (
             <div className="xl:w-1/4 md:w-1/2 p-4" key={recipe.id}>
               <div className="bg-gray-100 p-6 rounded-lg">
