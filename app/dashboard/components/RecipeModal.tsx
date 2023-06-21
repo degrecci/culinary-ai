@@ -1,11 +1,13 @@
 import { Button } from "@/app/components/Button";
 import { Modal } from "@/app/components/Modal";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 
 async function generateRecipe({ text }: { text: string }) {
-  const prompt = `${text}
-    Generate a recipe with the following structure:
+  const prompt = `
+    Generate a ${text} recipe with the following structure:
     - cook_time: string | null;
     - created_at: string | null;
     - description: string | null;
@@ -43,14 +45,29 @@ async function generateRecipe({ text }: { text: string }) {
   }
 }
 
+const validationSchema = z.object({
+  recipe: z.string().min(1, { message: "Required" }),
+});
+
+type FormValues = z.infer<typeof validationSchema>;
+
 export default function RecipeModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { register, handleSubmit } = useForm<{ text: string }>();
 
-  const onSubmit = async (data: { text: string }) => {
-    const recipe = await generateRecipe({ text: data.text });
+  const onSubmit = async (data: { recipe: string }) => {
+    const recipe = await generateRecipe({ text: data.recipe });
     console.log(recipe);
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>({
+    resolver: zodResolver(validationSchema),
+  });
+
+  const errorMessagesClasses = "text-xs text-red-600 mt-1";
 
   return (
     <>
@@ -60,17 +77,18 @@ export default function RecipeModal() {
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="relative mb-4">
-            <label htmlFor="email" className="leading-7 text-sm text-gray-600">
-              Texto
+            <label htmlFor="recipe" className="leading-7 text-sm text-gray-600">
+              Type what you would like the recipe to be about
             </label>
             <input
-              {...register("text")}
+              {...register("recipe")}
               type="text"
               className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-            />{" "}
-            {/* {errors.text && (
-            <p className={errorMessagesClasses}>{errors.text?.message}</p>
-          )} */}
+              placeholder="Pie with chicken"
+            />
+            {errors.recipe && (
+              <p className={errorMessagesClasses}>{errors.recipe?.message}</p>
+            )}
           </div>
           <Button type="submit">Generate Recipe</Button>
         </form>
