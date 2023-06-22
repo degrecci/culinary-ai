@@ -5,6 +5,13 @@ import Image from "next/image";
 import { supabaseClient } from "@/services/supabase";
 import RecipeModal from "./components/RecipeModal";
 
+if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { worker } = require("@/mocks/browser");
+
+  worker.start();
+}
+
 type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
 export default function Dashboard() {
