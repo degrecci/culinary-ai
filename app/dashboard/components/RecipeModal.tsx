@@ -7,19 +7,17 @@ import { z } from "zod";
 
 async function generateRecipe({ text }: { text: string }) {
   const prompt = `
-    Generate a ${text} recipe with the following structure:
-    - cook_time: string | null;
-    - created_at: string | null;
+    Generate a ${text} recipe returning a json with the following structure:
+    - cook_time: number | null;
     - description: string | null;
     - difficulty_level: string | null;
-    - id: number;
     - ingredients: Json | null;
     - instructions: Json | null;
-    - prep_time: string | null;
+    - prep_time: number | null;
     - serves: number | null;
     - tips_and_variations: string | null;
     - title: string;
-    - total_time: string | null;
+    - total_time: number | null;
   `;
 
   try {
