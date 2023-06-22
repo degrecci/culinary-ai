@@ -4,44 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
-async function generateRecipe({ text }: { text: string }) {
-  const prompt = `
-    Generate a ${text} recipe returning a json with the following structure:
-    - cook_time: number | null;
-    - description: string | null;
-    - difficulty_level: string | null;
-    - ingredients: Json | null;
-    - instructions: Json | null;
-    - prep_time: number | null;
-    - serves: number | null;
-    - tips_and_variations: string | null;
-    - title: string;
-    - total_time: number | null;
-  `;
-
-  try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.NEXT_PUBLIC_OPEN_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.7,
-      }),
-    });
-
-    const data = await response.json();
-    const recipe = data.choices[0].text.trim();
-    return recipe;
-  } catch (error) {
-    console.error("Error generating recipe:", error);
-    return null;
-  }
-}
+import useRecipeGenerator from "../hooks/use-generate-recipe";
 
 const validationSchema = z.object({
   recipe: z.string().min(1, { message: "Required" }),
@@ -51,10 +14,10 @@ type FormValues = z.infer<typeof validationSchema>;
 
 export default function RecipeModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoading, recipe, generateRecipe } = useRecipeGenerator();
 
   const onSubmit = async (data: { recipe: string }) => {
-    const recipe = await generateRecipe({ text: data.recipe });
-    console.log(recipe);
+    await generateRecipe(data.recipe);
   };
 
   const {
