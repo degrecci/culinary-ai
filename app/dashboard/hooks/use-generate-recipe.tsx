@@ -1,7 +1,5 @@
-import { Database } from "@/lib/supabase";
+import { Recipe } from "@/app/types";
 import { useState } from "react";
-
-type Recipe = Omit<Database["public"]["Tables"]["recipes"]["Row"], "user_id">;
 
 interface RecipeGeneratorHook {
   isLoading: boolean;
