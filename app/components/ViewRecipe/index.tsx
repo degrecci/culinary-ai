@@ -16,7 +16,7 @@ function showJsonList(json: Json) {
   }
 
   return Object.entries(json).map(([key, values]) => (
-    <li className="list-none mb-3" key={key}>
+    <li className="list-none text-sm mb-4" key={key}>
       <strong>{capitalizeFirstLetter(key)}:</strong>
       <ul>
         {values.map((value: string, index: string) => (
@@ -37,9 +37,9 @@ const ViewRecipe = ({ recipe }: Props) => {
       <p className="text-sm">Total time: {recipe.total_time}</p>
       <p className="text-sm mb-4">Serves: {recipe.serves}</p>
       <p className="text-md mb-2 font-semibold">Ingredients</p>
-      <p className="text-sm mb-4">{showJsonList(recipe.ingredients)}</p>
+      {showJsonList(recipe.ingredients)}
       <p className="text-md mb-2 font-semibold">Instructions</p>
-      <p className="text-sm mb-4">{showJsonList(recipe.instructions)}</p>
+      {showJsonList(recipe.instructions)}
       <p className="text-md font-semibold">Tips</p>
       <p className="text-sm mb-8">{recipe.tips_and_variations}</p>
     </div>
