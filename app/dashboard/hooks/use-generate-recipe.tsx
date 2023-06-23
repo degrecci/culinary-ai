@@ -7,11 +7,13 @@ interface RecipeGeneratorHook {
   isLoading: boolean;
   recipe?: Recipe;
   generateRecipe: (text: string) => Promise<Recipe | null>;
+  cleanRecipe: () => void;
 }
 
 const useRecipeGenerator = (): RecipeGeneratorHook => {
   const [isLoading, setIsLoading] = useState(false);
   const [recipe, setRecipe] = useState<Recipe>();
+  const cleanRecipe = () => setRecipe(undefined);
 
   const generateRecipe = async (text: string) => {
     setIsLoading(true);
@@ -62,7 +64,7 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     }
   };
 
-  return { isLoading, recipe, generateRecipe };
+  return { isLoading, recipe, generateRecipe, cleanRecipe };
 };
 
 export default useRecipeGenerator;
