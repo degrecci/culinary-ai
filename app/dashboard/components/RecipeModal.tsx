@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import useRecipeGenerator from "../hooks/use-generate-recipe";
+import ViewRecipe from "@/app/components/ViewRecipe";
 
 const validationSchema = z.object({
   recipe: z.string().min(1, { message: "Required" }),
@@ -45,7 +46,7 @@ export default function RecipeModal() {
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {recipe && (
           <div className="relative mb-4">
-            <p>{JSON.stringify(recipe)}</p>
+            <ViewRecipe recipe={recipe} />
             <div className="flex justify-between">
               <Button secondary onClick={handleTryAnother}>
                 Try another
