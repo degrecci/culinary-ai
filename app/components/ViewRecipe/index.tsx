@@ -1,4 +1,5 @@
 import { Recipe } from "@/app/types";
+import { Json } from "@/lib/supabase";
 import React from "react";
 
 type Props = {
@@ -6,6 +7,23 @@ type Props = {
 };
 
 const ViewRecipe = ({ recipe }: Props) => {
+  function showJsonList(json: Json) {
+    if (!json) {
+      return "";
+    }
+
+    return Object.entries(json).map(([key, values]) => (
+      <li key={key}>
+        <strong>{key}:</strong>
+        <ul>
+          {values.map((value: string, index: string) => (
+            <li key={index}>{value}</li>
+          ))}
+        </ul>
+      </li>
+    ));
+  }
+
   return (
     <div>
       <h3 className="text-2xl font-bold">{recipe.title}</h3>
@@ -14,8 +32,8 @@ const ViewRecipe = ({ recipe }: Props) => {
       <p>{recipe.prep_time}</p>
       <p>{recipe.total_time}</p>
       <p>{recipe.serves}</p>
-      <p>{JSON.stringify(recipe.ingredients)}</p>
-      <p>{JSON.stringify(recipe.instructions)}</p>
+      <p>{showJsonList(recipe.ingredients)}</p>
+      <p>{showJsonList(recipe.instructions)}</p>
       <p>{recipe.tips_and_variations}</p>
     </div>
   );
