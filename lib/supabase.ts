@@ -11,7 +11,6 @@ export interface Database {
     Tables: {
       recipes: {
         Row: {
-          cook_time: number | null;
           created_at: string | null;
           description: string | null;
           difficulty_level: string | null;
@@ -26,7 +25,6 @@ export interface Database {
           user_id: string | null;
         };
         Insert: {
-          cook_time?: number | null;
           created_at?: string | null;
           description?: string | null;
           difficulty_level?: string | null;
@@ -41,7 +39,6 @@ export interface Database {
           user_id?: string | null;
         };
         Update: {
-          cook_time?: number | null;
           created_at?: string | null;
           description?: string | null;
           difficulty_level?: string | null;
