@@ -32,8 +32,8 @@ export default function Dashboard() {
 
   return (
     <section className="text-gray-600 body-font">
-      <div className="container px-5 py-24 mx-auto">
-        <div className="flex flex-wrap -m-4">
+      <div className="md:container md:mx-auto px-5 py-12">
+        <div className="flex flex-wrap">
           <RecipeModal />
           {recipes.map((recipe) => (
             <div className="xl:w-1/4 md:w-1/2 p-4" key={recipe.id}>
