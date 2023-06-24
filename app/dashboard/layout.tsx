@@ -2,15 +2,16 @@
 import { supabaseClient } from "@/services/supabase";
 import { ExitIcon } from "@/assets/icons/exit-arrow";
 import { Navbar } from "../components/Navbar";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect } from "react";
 import Link from "next/link";
+import { useUser } from "@/store/user";
 
 export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<{ id?: string; email?: string }>({});
+  const { user, setUser } = useUser();
   const getUser = useCallback(async () => {
     const {
       data: { user },
@@ -20,7 +21,7 @@ export default function DashboardLayout({
       return (window.location.href = "/signin");
     }
 
-    setUser(user);
+    setUser({ email: user.email || "", id: user.id || "" });
   }, []);
 
   useEffect(() => {

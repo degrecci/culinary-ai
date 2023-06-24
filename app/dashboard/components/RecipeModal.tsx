@@ -6,6 +6,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import useRecipeGenerator from "../hooks/use-generate-recipe";
 import ViewRecipe from "@/app/components/ViewRecipe";
+import { supabaseClient } from "@/services/supabase";
+import { useUser } from "@/store/user";
 
 const validationSchema = z.object({
   recipe: z.string().min(1, { message: "Required" }),
@@ -15,11 +17,24 @@ type FormValues = z.infer<typeof validationSchema>;
 
 export default function RecipeModal() {
   const [isOpen, setIsOpen] = useState(false);
+  const { user } = useUser();
   const { isLoading, recipe, generateRecipe, cleanRecipe } =
     useRecipeGenerator();
 
   const onSubmit = async (data: { recipe: string }) => {
     await generateRecipe(data.recipe);
+  };
+
+  const handleSaveRecipe = async () => {
+    if (!recipe) return;
+    if (!user) return;
+
+    const { data, error } = await supabaseClient
+      .from("recipes")
+      .insert([{ title: recipe.title, user_id: user.id }])
+      .single();
+
+    console.log({ data, error });
   };
 
   const {
@@ -51,7 +66,7 @@ export default function RecipeModal() {
               <Button secondary onClick={handleTryAnother}>
                 Try another
               </Button>
-              <Button>Save</Button>
+              <Button onClick={handleSaveRecipe}>Save</Button>
             </div>
           </div>
         )}
