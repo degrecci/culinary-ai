@@ -89,9 +89,15 @@ export default function RecipeModal() {
                 <p className={errorMessagesClasses}>{errors.recipe?.message}</p>
               )}
             </div>
+
+            <div className="flex justify-between">
+              <Button secondary onClick={() => setIsOpen(false)}>
+                Close
+              </Button>
             <Button type="submit" isLoading={isLoading}>
               Generate Recipe
             </Button>
+            </div>
           </form>
         )}
       </Modal>
