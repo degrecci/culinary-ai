@@ -18,7 +18,6 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
 
     const prompt = `
       Generate a ${text} recipe returning a json with the following structure:
-      - cook_time: number | null;
       - description: string | null;
       - difficulty_level: string | null;
       - ingredients: Json | null;
