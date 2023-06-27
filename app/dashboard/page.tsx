@@ -9,17 +9,17 @@ type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
 export default async function Dashboard() {
   const supabase = createServerComponentClient({ cookies });
-  const { data } = await supabase.from("recipes").select();
+  const { data, error } = await supabase.from("recipes").select();
 
   const recipes = data as Recipe[];
 
-  console.log({ recipes });
+  console.log({ recipes, error });
 
   return (
     <section className="text-gray-600 body-font">
       <div className="md:container md:mx-auto px-5 py-12">
+        <RecipeModal />
         <div className="flex flex-wrap">
-          <RecipeModal />
           {recipes.map((recipe) => (
             <div className="xl:w-1/4 md:w-1/2 p-4" key={recipe.id}>
               <div className="bg-gray-100 p-6 rounded-lg">
@@ -30,15 +30,11 @@ export default async function Dashboard() {
                   src="https://dummyimage.com/720x400"
                   alt="content"
                 />
-                <h3 className="tracking-widest text-red-500 text-xs font-medium title-font">
-                  SUBTITLE
-                </h3>
-                <h2 className="text-lg text-gray-900 font-medium title-font mb-4">
-                  San Francisco
+                <h2 className="text-lg text-red-500 font-medium title-font mb-4">
+                  {recipe.title}
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Fingerstache flexitarian street art 8-bit waistcoat.
-                  Distillery hexagon disrupt edison bulbche.
+                  {recipe.description}
                 </p>
               </div>
             </div>
