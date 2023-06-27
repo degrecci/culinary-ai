@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/app/components/Button";
 import { Modal } from "@/app/components/Modal";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -8,6 +9,13 @@ import useRecipeGenerator from "../hooks/use-generate-recipe";
 import ViewRecipe from "@/app/components/ViewRecipe";
 import { supabaseClient } from "@/services/supabase";
 import { useUser } from "@/store/user";
+
+if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const { worker } = require("@/mocks/browser");
+
+  worker.start();
+}
 
 const validationSchema = z.object({
   recipe: z.string().min(1, { message: "Required" }),

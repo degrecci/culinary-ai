@@ -1,34 +1,19 @@
-"use client";
 import { Database } from "@/lib/supabase";
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-import { supabaseClient } from "@/services/supabase";
 import RecipeModal from "./components/RecipeModal";
-
-if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const { worker } = require("@/mocks/browser");
-
-  worker.start();
-}
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
-export default function Dashboard() {
-  const [recipes, setRecipes] = React.useState<Recipe[]>([]);
+export default async function Dashboard() {
+  const supabase = createServerComponentClient({ cookies });
+  const { data } = await supabase.from("recipes").select();
 
-  const getRecipes = async () => {
-    const { data } = await supabaseClient.from("recipes").select("*");
+  const recipes = data as Recipe[];
 
-    if (data) {
-      return setRecipes(data);
-    }
-    return setRecipes([]);
-  };
-
-  useEffect(() => {
-    getRecipes();
-  }, []);
+  console.log({ recipes });
 
   return (
     <section className="text-gray-600 body-font">
