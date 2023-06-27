@@ -25,6 +25,7 @@ export const Button = ({
       className={`py-2 px-8 focus:outline-none rounded text-lg ${className} ${
         secondary ? secondaryColors : primaryColors
       }`}
+      disabled={isLoading}
       {...props}
     >
       {isLoading ? <Loader /> : children}

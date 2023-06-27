@@ -7,8 +7,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import useRecipeGenerator from "../hooks/use-generate-recipe";
 import ViewRecipe from "@/app/components/ViewRecipe";
-import { supabaseClient } from "@/services/supabase";
-import { useUser } from "@/store/user";
+import { useSaveRecipe } from "../hooks/use-save-recipe";
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -25,9 +24,9 @@ type FormValues = z.infer<typeof validationSchema>;
 
 export default function RecipeModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useUser();
   const { isLoading, recipe, generateRecipe, cleanRecipe } =
     useRecipeGenerator();
+  const { saveRecipe, isSavingRecipe } = useSaveRecipe();
 
   const onSubmit = async (data: { recipe: string }) => {
     await generateRecipe(data.recipe);
@@ -35,27 +34,12 @@ export default function RecipeModal() {
 
   const handleSaveRecipe = async () => {
     if (!recipe) return;
-    if (!user) return;
 
-    const { data, error } = await supabaseClient
-      .from("recipes")
-      .insert([
-        {
-          title: recipe.title,
-          description: recipe.description,
-          difficulty_level: recipe.difficulty_level,
-          total_time: recipe.total_time,
-          prep_time: recipe.prep_time,
-          serves: recipe.serves,
-          instructions: recipe.instructions,
-          ingredients: recipe.ingredients,
-          tips_and_variations: recipe.tips_and_variations,
-          user_id: user.id,
-        },
-      ])
-      .single();
+    await saveRecipe(recipe);
 
-    console.log({ data, error });
+    setIsOpen(false);
+    cleanRecipe();
+    reset();
   };
 
   const {
@@ -81,13 +65,15 @@ export default function RecipeModal() {
       </Button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {recipe && (
-          <div className="relative mb-4">
+          <div className="relative">
             <ViewRecipe recipe={recipe} />
             <div className="flex justify-between">
               <Button secondary onClick={handleTryAnother}>
                 Try another
               </Button>
-              <Button onClick={handleSaveRecipe}>Save</Button>
+              <Button onClick={handleSaveRecipe} isLoading={isSavingRecipe}>
+                Save
+              </Button>
             </div>
           </div>
         )}

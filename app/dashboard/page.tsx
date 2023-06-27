@@ -9,11 +9,9 @@ type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
 export default async function Dashboard() {
   const supabase = createServerComponentClient({ cookies });
-  const { data, error } = await supabase.from("recipes").select();
+  const { data } = await supabase.from("recipes").select();
 
   const recipes = data as Recipe[];
-
-  console.log({ recipes, error });
 
   return (
     <section className="text-gray-600 body-font">
