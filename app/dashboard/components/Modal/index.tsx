@@ -59,10 +59,12 @@ export default function RecipeModal() {
   const errorMessagesClasses = "text-xs text-red-600 mt-1";
 
   return (
-    <>
-      <Button type="button" onClick={() => setIsOpen(true)}>
-        New Recipe
-      </Button>
+    <div>
+      <div className="flex w-full justify-end">
+        <Button data-type="button" onClick={() => setIsOpen(true)}>
+          New Recipe
+        </Button>
+      </div>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
         {recipe && (
           <div className="relative">
@@ -108,6 +110,6 @@ export default function RecipeModal() {
           </form>
         )}
       </Modal>
-    </>
+    </div>
   );
 }
