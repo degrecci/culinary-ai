@@ -5,9 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import useRecipeGenerator from "../hooks/use-generate-recipe";
+import useRecipeGenerator from "../../hooks/use-generate-recipe";
 import ViewRecipe from "@/app/components/ViewRecipe";
-import { useSaveRecipe } from "../hooks/use-save-recipe";
+import { useSaveRecipe } from "../../hooks/use-save-recipe";
 
 if (process.env.NEXT_PUBLIC_API_MOCKING === "enabled") {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
