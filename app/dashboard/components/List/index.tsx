@@ -1,4 +1,8 @@
+"use client";
+
 import { Recipe } from "@/app/types";
+import { TrashIcon } from "@/assets/icons/trash";
+import { supabaseClient } from "@/services/supabase";
 import Image from "next/image";
 
 type ListProps = {
@@ -6,6 +10,9 @@ type ListProps = {
 };
 
 export default function RecipesList({ recipes }: ListProps) {
+  const handleDeleteRecipe = async (id: number) =>
+    await supabaseClient.from("recipes").delete().eq("id", id);
+
   return (
     <div className="flex flex-wrap">
       {recipes.map((recipe) => {
@@ -25,8 +32,15 @@ export default function RecipesList({ recipes }: ListProps) {
               <h2 className="text-lg text-red-500 font-medium title-font mb-4">
                 {recipe.title}
               </h2>
-              <p className="leading-relaxed text-base">{recipe.description}</p>
-              <p className="text-xs text-gray-500 mt-3">{formattedCreatedAt}</p>
+              <p className="leading-relaxed text-base mb-3">
+                {recipe.description}
+              </p>
+              <div className="flex justify-between items-center">
+                <p className="text-xs text-gray-500">{formattedCreatedAt}</p>
+                <button onClick={() => handleDeleteRecipe(recipe.id)}>
+                  <TrashIcon className="w-4 text-red-500" />
+                </button>
+              </div>
             </div>
           </div>
         );
