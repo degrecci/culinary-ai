@@ -6,10 +6,10 @@ import { Recipe } from "@/app/types";
 import { TrashIcon } from "@/assets/icons/trash";
 import { supabaseClient } from "@/services/supabase";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type ListProps = {
-  recipes: Recipe[];
+  serverRecipes: Recipe[];
 };
 
 type ModalState = {
@@ -17,14 +17,44 @@ type ModalState = {
   deleteId: number | null;
 };
 
-export default function RecipesList({ recipes }: ListProps) {
+export default function RecipesList({ serverRecipes }: ListProps) {
+  const [recipes, setRecipes] = useState<Recipe[]>(serverRecipes);
   const [modal, setModal] = useState<ModalState>({
     isOpen: false,
     deleteId: null,
   });
 
+  useEffect(() => {
+    setRecipes(serverRecipes);
+  }, [serverRecipes]);
+
+  useEffect(() => {
+    const channel = supabaseClient
+      .channel("changes")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "recipes" },
+        (payload) =>
+          setRecipes((prevRecipes: any) => [payload.new, ...prevRecipes])
+      )
+      .subscribe();
+
+    return () => {
+      supabaseClient.removeChannel(channel);
+    };
+  }, [serverRecipes]);
+
   const handleDeleteRecipe = async (id: number | null) => {
-    await supabaseClient.from("recipes").delete().eq("id", id);
+    const { error } = await supabaseClient
+      .from("recipes")
+      .delete()
+      .eq("id", id);
+
+    if (!error) {
+      const newRecipes = recipes.filter((recipe) => recipe.id !== id);
+      setRecipes(newRecipes);
+    }
+
     return setModal({ isOpen: false, deleteId: null });
   };
 

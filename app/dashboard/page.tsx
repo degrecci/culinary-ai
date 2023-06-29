@@ -8,6 +8,8 @@ import Loading from "./loading";
 
 type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
+export const revalidate = 0;
+
 export default async function Dashboard() {
   const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase
@@ -15,14 +17,12 @@ export default async function Dashboard() {
     .select("title, description, created_at, id")
     .order("created_at", { ascending: false });
 
-  const recipes = data as Recipe[];
-
   return (
     <section className="text-gray-600 body-font">
       <div className="md:container md:mx-auto px-5 py-12">
         <RecipeModal />
         <Suspense fallback={<Loading />}>
-          <RecipesList recipes={recipes} />
+          <RecipesList serverRecipes={data as Recipe[]} />
         </Suspense>
       </div>
     </section>

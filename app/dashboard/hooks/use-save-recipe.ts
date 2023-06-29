@@ -9,7 +9,6 @@ interface SaveRecipeHook {
 
 export const useSaveRecipe = (): SaveRecipeHook => {
   const [isSavingRecipe, setIsSavingRecipe] = useState(false);
-  console.log(isSavingRecipe);
 
   const saveRecipe = async (recipe: Recipe) => {
     setIsSavingRecipe(true);
