@@ -84,33 +84,37 @@ export default function RecipesList({ serverRecipes }: ListProps) {
           </div>
         </div>
       </Modal>
-      {recipes.map((recipe) => {
-        const date = new Date(recipe.created_at as string);
-        const formattedCreatedAt = date.toLocaleString();
+      <div className="grid md:grid-cols-4 gap-4 mt-4">
+        {recipes.map((recipe) => {
+          const date = new Date(recipe.created_at as string);
+          const formattedCreatedAt = date.toLocaleString();
 
-        return (
-          <div className="xl:w-1/4 md:w-1/2 p-4" key={recipe.id}>
-            <div className="bg-gray-100 p-6 rounded-lg">
+          return (
+            <div
+              className="bg-gray-100 p-6 rounded-lg flex flex-col"
+              key={recipe.id}
+            >
               <h2 className="text-lg text-red-500 font-medium title-font mb-4">
                 {recipe.title}
               </h2>
-              <p className="leading-relaxed text-base mb-3">
+              <p className="leading-relaxed text-base mb-3 grow">
                 {recipe.description}
               </p>
               <div className="flex justify-between items-center">
                 <p className="text-xs text-gray-500">{formattedCreatedAt}</p>
                 <button
+                  className="hover:bg-red-100 rounded-full w-7 h-7"
                   onClick={() =>
                     setModal({ isOpen: true, deleteId: recipe.id })
                   }
                 >
-                  <TrashIcon className="w-4 text-red-500" />
+                  <TrashIcon className="w-5 m-auto text-red-500" />
                 </button>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 }
