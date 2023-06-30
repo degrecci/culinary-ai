@@ -14,7 +14,7 @@ export default async function Dashboard() {
   const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase
     .from("recipes")
-    .select("title, description, created_at, id")
+    .select("*")
     .order("created_at", { ascending: false });
 
   return (
