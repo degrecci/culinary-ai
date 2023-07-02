@@ -31,18 +31,16 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     `;
 
     try {
-      const { data: attempts } = await supabaseClient
-        .from("attempts")
-        .select("*");
+      const { data: track } = await supabaseClient.from("track").select("*");
 
-      if (!attempts || !attempts.length) {
-        await supabaseClient.from("attempts").insert([{ attempts: 1 }]);
+      if (!track || !track.length) {
+        await supabaseClient.from("track").insert([{ attempts: 1 }]);
       }
 
       await supabaseClient
-        .from("attempts")
-        .update({ attempts: attempts[0].attempts + 1 })
-        .eq("id", attempts[0].id);
+        .from("track")
+        .update({ attempts: track[0].attempts + 1 })
+        .eq("id", track[0].id);
 
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",

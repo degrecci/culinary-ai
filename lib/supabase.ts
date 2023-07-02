@@ -61,7 +61,7 @@ export interface Database {
           }
         ];
       };
-      attempts: {
+      track: {
         Row: {
           id: number;
           attempts: number;
