@@ -1,6 +1,6 @@
 import { Recipe } from "@/app/types";
-import { supabaseClient } from "@/services/supabase";
 import { useState } from "react";
+import { useTrackAttempts } from "./use-track-attempts";
 
 interface RecipeGeneratorHook {
   isLoading: boolean;
@@ -13,6 +13,7 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
   const [isLoading, setIsLoading] = useState(false);
   const [recipe, setRecipe] = useState<Recipe>();
   const cleanRecipe = () => setRecipe(undefined);
+  const { trackAttempt } = useTrackAttempts();
 
   const generateRecipe = async (text: string) => {
     setIsLoading(true);
@@ -31,16 +32,7 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     `;
 
     try {
-      const { data: track } = await supabaseClient.from("track").select("*");
-
-      if (!track || !track.length) {
-        await supabaseClient.from("track").insert([{ attempts: 1 }]);
-      }
-
-      await supabaseClient
-        .from("track")
-        .update({ attempts: track[0].attempts + 1 })
-        .eq("id", track[0].id);
+      trackAttempt();
 
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
