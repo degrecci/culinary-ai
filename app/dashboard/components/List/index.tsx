@@ -5,7 +5,6 @@ import { Modal } from "@/app/components/Modal";
 import { Recipe } from "@/app/types";
 import { TrashIcon } from "@/assets/icons/trash";
 import { supabaseClient } from "@/services/supabase";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type ListProps = {
