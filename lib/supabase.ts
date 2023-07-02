@@ -61,6 +61,31 @@ export interface Database {
           }
         ];
       };
+      attempts: {
+        Row: {
+          id: number;
+          attempts: number;
+          user_id: string | null;
+        };
+        Insert: {
+          id?: number;
+          attempts: number;
+          user_id?: string | null;
+        };
+        Update: {
+          id?: number;
+          attempts: number;
+          user_id?: string | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "recipes_user_id_fkey";
+            columns: ["user_id"];
+            referencedRelation: "users";
+            referencedColumns: ["id"];
+          }
+        ];
+      };
     };
     Views: {
       [_ in never]: never;

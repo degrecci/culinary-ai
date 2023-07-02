@@ -1,4 +1,5 @@
 import { Recipe } from "@/app/types";
+import { supabaseClient } from "@/services/supabase";
 import { useState } from "react";
 
 interface RecipeGeneratorHook {
@@ -30,6 +31,19 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     `;
 
     try {
+      const { data: attempts } = await supabaseClient
+        .from("attempts")
+        .select("*");
+
+      if (!attempts || !attempts.length) {
+        await supabaseClient.from("attempts").insert([{ attempts: 1 }]);
+      }
+
+      await supabaseClient
+        .from("attempts")
+        .update({ attempts: attempts[0].attempts + 1 })
+        .eq("id", attempts[0].id);
+
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
         {
