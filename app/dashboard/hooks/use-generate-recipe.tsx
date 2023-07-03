@@ -32,7 +32,11 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     `;
 
     try {
-      trackAttempt();
+      const { error } = await trackAttempt();
+
+      if (error) {
+        return null;
+      }
 
       const response = await fetch(
         "https://api.openai.com/v1/chat/completions",
@@ -55,13 +59,13 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
         data.choices[0].message.content.trim()
       ) as Recipe;
 
-      setIsLoading(false);
       setRecipe(recipe);
       return recipe;
     } catch (error) {
       console.error("Error generating recipe:", error);
-      setIsLoading(false);
       return null;
+    } finally {
+      setIsLoading(false);
     }
   };
 
