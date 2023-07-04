@@ -29,7 +29,7 @@ export default function RecipeModal() {
   const { saveRecipe, isSavingRecipe } = useSaveRecipe();
 
   const onSubmit = async (data: { recipe: string }) => {
-    await generateRecipe(data.recipe);
+    const error = await generateRecipe(data.recipe);
   };
 
   const handleSaveRecipe = async () => {

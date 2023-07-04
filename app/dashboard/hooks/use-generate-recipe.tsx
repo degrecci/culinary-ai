@@ -5,7 +5,7 @@ import { useTrackAttempts } from "./use-track-attempts";
 interface RecipeGeneratorHook {
   isLoading: boolean;
   recipe?: Recipe;
-  generateRecipe: (text: string) => Promise<Recipe | null>;
+  generateRecipe: (text: string) => Promise<Recipe | null> | Error;
   cleanRecipe: () => void;
 }
 
@@ -32,10 +32,10 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     `;
 
     try {
-      const { error } = await trackAttempt();
+      const error = await trackAttempt();
 
       if (error) {
-        return null;
+        return error;
       }
 
       const response = await fetch(
@@ -60,10 +60,10 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
       ) as Recipe;
 
       setRecipe(recipe);
-      return recipe;
+      return null;
     } catch (error) {
       console.error("Error generating recipe:", error);
-      return null;
+      return error;
     } finally {
       setIsLoading(false);
     }

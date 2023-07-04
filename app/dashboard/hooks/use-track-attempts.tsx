@@ -5,7 +5,7 @@ export const useTrackAttempts = () => {
     process.env.NEXT_PUBLIC_MAX_ATTEMPTS_ALLOWED
   );
 
-  const trackAttempt = async () => {
+  const trackAttempt = async (): Promise<any> => {
     try {
       const { data: track } = await supabaseClient.from("track").select("*");
 
@@ -22,7 +22,7 @@ export const useTrackAttempts = () => {
         .update({ attempts: track[0].attempts + 1 })
         .eq("id", track[0].id);
     } catch (error) {
-      return { error };
+      return error;
     }
   };
 
