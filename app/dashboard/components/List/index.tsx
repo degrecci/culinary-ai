@@ -4,7 +4,7 @@ import { Button } from "@/app/components/Button";
 import { Modal } from "@/app/components/Modal";
 import { Recipe } from "@/app/types";
 import { TrashIcon } from "@/assets/icons/trash";
-import { supabaseClient } from "@/services/supabase";
+import { supabaseClient } from "@/services/client";
 import { useEffect, useState } from "react";
 
 type ListProps = {

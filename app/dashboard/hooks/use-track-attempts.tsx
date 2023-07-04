@@ -1,4 +1,4 @@
-import { supabaseClient } from "@/services/supabase";
+import { supabaseClient } from "@/services/client";
 
 export const useTrackAttempts = () => {
   const MAX_ATTEMPTS_ALLOWED = Number(
@@ -17,10 +17,12 @@ export const useTrackAttempts = () => {
         throw new Error(`Maximum attempts of ${MAX_ATTEMPTS_ALLOWED} reached`);
       }
 
-      return await supabaseClient
+      const { data } = await supabaseClient
         .from("track")
         .update({ attempts: track[0].attempts + 1 })
         .eq("id", track[0].id);
+
+      return data;
     } catch (error) {
       return error;
     }

@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { Button } from "@/app/components/Button";
-import { supabaseClient } from "@/services/supabase";
+import { supabaseClient } from "@/services/client";
 
 const validationSchema = z.object({
   email: z.string().email("Invalid email"),

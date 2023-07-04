@@ -5,7 +5,7 @@ import { Logo } from "../components/Logo";
 import { PATHS } from "../paths";
 import { Button } from "../components/Button";
 import Link from "next/link";
-import { supabaseClient } from "@/services/supabase";
+import { supabaseClient } from "@/services/client";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";

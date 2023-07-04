@@ -2,17 +2,15 @@ import { Database } from "@/lib/supabase";
 import React, { Suspense } from "react";
 import RecipeModal from "./components/Modal";
 import RecipesList from "./components/List";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import Loading from "./loading";
+import { supabaseServer } from "@/services/server";
 
 type Recipe = Database["public"]["Tables"]["recipes"]["Row"];
 
 export const revalidate = 0;
 
 export default async function Dashboard() {
-  const supabase = createServerComponentClient({ cookies });
-  const { data } = await supabase
+  const { data } = await supabaseServer
     .from("recipes")
     .select("*")
     .order("created_at", { ascending: false });
