@@ -24,8 +24,12 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
       Generate a ${text} recipe returning a json with the following structure:
       - description: string | null;
       - difficulty_level: string | null;
-      - ingredients: Json | null;
-      - instructions: Json | null;
+      - ingredients: {
+        [key: string]: string[];
+      } | null;
+      - instructions: {
+        [key: string]: string[];
+      } | null;
       - prep_time: number | null;
       - serves: number | null;
       - tips_and_variations: string | null;
