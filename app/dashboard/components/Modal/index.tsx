@@ -24,12 +24,12 @@ type FormValues = z.infer<typeof validationSchema>;
 
 export default function RecipeModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLoading, recipe, generateRecipe, cleanRecipe } =
+  const { isLoading, error, recipe, generateRecipe, cleanRecipe } =
     useRecipeGenerator();
   const { saveRecipe, isSavingRecipe } = useSaveRecipe();
 
   const onSubmit = async (data: { recipe: string }) => {
-    const error = await generateRecipe(data.recipe);
+    await generateRecipe(data.recipe);
   };
 
   const handleSaveRecipe = async () => {
@@ -97,6 +97,8 @@ export default function RecipeModal() {
               {errors.recipe && (
                 <p className={errorMessagesClasses}>{errors.recipe?.message}</p>
               )}
+
+              {error && <p className={errorMessagesClasses}>{error.message}</p>}
             </div>
 
             <div className="flex justify-between">

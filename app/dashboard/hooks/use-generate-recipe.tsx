@@ -7,10 +7,12 @@ interface RecipeGeneratorHook {
   recipe?: Recipe;
   generateRecipe: (text: string) => Promise<Recipe | null> | Error;
   cleanRecipe: () => void;
+  error?: Error;
 }
 
 const useRecipeGenerator = (): RecipeGeneratorHook => {
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error>();
   const [recipe, setRecipe] = useState<Recipe>();
   const cleanRecipe = () => setRecipe(undefined);
   const { trackAttempt } = useTrackAttempts();
@@ -35,6 +37,7 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
       const error = await trackAttempt();
 
       if (error) {
+        setError(error);
         return error;
       }
 
@@ -58,18 +61,18 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
       const recipe = JSON.parse(
         data.choices[0].message.content.trim()
       ) as Recipe;
-
       setRecipe(recipe);
       return null;
-    } catch (error) {
-      console.error("Error generating recipe:", error);
-      return error;
+    } catch (err) {
+      console.error("Error generating recipe:", err);
+      setError(err as Error);
+      return err;
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { isLoading, recipe, generateRecipe, cleanRecipe };
+  return { isLoading, error, recipe, generateRecipe, cleanRecipe };
 };
 
 export default useRecipeGenerator;
