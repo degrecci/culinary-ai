@@ -34,7 +34,7 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     `;
 
     try {
-      const error = await trackAttempt();
+      const { error } = await trackAttempt();
 
       if (error) {
         setError(error);

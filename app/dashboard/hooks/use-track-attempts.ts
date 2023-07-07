@@ -1,11 +1,16 @@
 import { supabaseClient } from "@/services/client";
 
+type TrackAttemptResponse = {
+  data?: any;
+  error?: any;
+};
+
 export const useTrackAttempts = () => {
   const MAX_ATTEMPTS_ALLOWED = Number(
     process.env.NEXT_PUBLIC_MAX_ATTEMPTS_ALLOWED
   );
 
-  const trackAttempt = async (): Promise<any> => {
+  const trackAttempt = async (): Promise<TrackAttemptResponse> => {
     try {
       const { data: track } = await supabaseClient.from("track").select("*");
 
@@ -14,7 +19,7 @@ export const useTrackAttempts = () => {
           .from("track")
           .insert([{ attempts: 1 }]);
 
-        return data;
+        return { data };
       }
 
       if (track[0].attempts >= MAX_ATTEMPTS_ALLOWED) {
