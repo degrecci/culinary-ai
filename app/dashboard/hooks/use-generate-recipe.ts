@@ -21,20 +21,16 @@ const useRecipeGenerator = (): RecipeGeneratorHook => {
     setIsLoading(true);
 
     const prompt = `
-      Generate a ${text} recipe returning a json with the following structure:
-      - description: string | null;
-      - difficulty_level: string | null;
-      - ingredients: {
-        [key: string]: string[];
-      } | null;
-      - instructions: {
-        [key: string]: string[];
-      } | null;
-      - prep_time: number | null;
-      - serves: number | null;
-      - tips_and_variations: string | null;
-      - title: string;
-      - total_time: number | null;
+      Generate a ${text} recipe as a JSON object with the following fields:
+      - description: string or null
+      - difficulty_level: string or null
+      - ingredients: object with string arrays as values or null
+      - instructions: object with string arrays as values or null
+      - prep_time: number or null
+      - serves: number or null
+      - tips_and_variations: string or null
+      - title: string
+      - total_time: number or null
     `;
 
     try {
