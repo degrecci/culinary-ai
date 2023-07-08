@@ -1,17 +1,16 @@
 "use client";
-
-import { Button } from "@/app/components/Button";
 import { Modal } from "@/app/components/Modal";
 import { Recipe } from "@/app/types";
 import { TrashIcon } from "@/assets/icons/trash";
 import { supabaseClient } from "@/services/client";
 import { useEffect, useState } from "react";
+import { DeleteModal } from "../DeleteModal";
 
 type ListProps = {
   serverRecipes: Recipe[];
 };
 
-type ModalState = {
+export type ModalState = {
   isOpen: boolean;
   deleteId: number | null;
 };
@@ -43,46 +42,19 @@ export default function RecipesList({ serverRecipes }: ListProps) {
     };
   }, [serverRecipes]);
 
-  const handleDeleteRecipe = async (id: number | null) => {
-    const { error } = await supabaseClient
-      .from("recipes")
-      .delete()
-      .eq("id", id);
-
-    if (!error) {
-      const newRecipes = recipes.filter((recipe) => recipe.id !== id);
-      setRecipes(newRecipes);
-    }
-
-    return setModal({ isOpen: false, deleteId: null });
+  const removeRecipeFromState = (id: number | null) => {
+    const newRecipes = recipes.filter((recipe) => recipe.id !== id);
+    setRecipes(newRecipes);
   };
 
   return (
     <div className="flex flex-wrap">
-      <Modal
-        isOpen={modal.isOpen}
-        onClose={() => setModal({ isOpen: false, deleteId: null })}
-      >
-        <div className="flex flex-col items-center justify-center">
-          <TrashIcon className="w-10 text-gray-500 mb-4" />
-          <p className="text-base">
-            Are you sure you want to delete this recipe? This action cannot be
-            undone.
-          </p>
-          <div className="mt-5">
-            <Button
-              secondary
-              onClick={() => setModal({ isOpen: false, deleteId: null })}
-              className="mr-6"
-            >
-              Cancel
-            </Button>
-            <Button onClick={() => handleDeleteRecipe(modal.deleteId)}>
-              Delete
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      <DeleteModal
+        modal={modal}
+        setModal={setModal}
+        removeRecipeFromState={removeRecipeFromState}
+      />
+
       <div className="grid md:grid-cols-4 gap-4 mt-4">
         {recipes.map((recipe) => {
           const date = new Date(recipe.created_at as string);
