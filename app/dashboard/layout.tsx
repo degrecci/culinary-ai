@@ -27,7 +27,7 @@ export default async function DashboardLayout({
         <form action="/auth/signout" method="POST">
           <Navbar.Item type="submit">
             Sign Out
-            <ExitIcon />
+            <ExitIcon className="w-5 h-5 ml-1" />
           </Navbar.Item>
         </form>
       </Navbar>

@@ -1,4 +1,4 @@
-export const ExitIcon = () => (
+export const ExitIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
     fill="none"
     stroke="currentColor"
@@ -7,6 +7,7 @@ export const ExitIcon = () => (
     strokeWidth="1.5"
     className="w-5 h-5 ml-1"
     viewBox="0 0 24 24"
+    {...props}
   >
     <path
       strokeLinecap="round"
