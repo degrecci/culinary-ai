@@ -3,6 +3,7 @@ import { Navbar } from "../components/Navbar";
 import Link from "next/link";
 import { supabaseServer } from "@/services/server";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function DashboardLayout({
   children,
@@ -14,7 +15,7 @@ export default async function DashboardLayout({
   } = await supabaseServer({ cookies }).auth.getUser();
 
   if (!user) {
-    return (window.location.href = "/signin");
+    return redirect("/signin");
   }
 
   return (
