@@ -1,25 +1,34 @@
 "use client";
-import { Modal } from "@/app/components/Modal";
 import { Recipe } from "@/app/types";
 import { TrashIcon } from "@/assets/icons/trash";
 import { supabaseClient } from "@/services/client";
 import { useEffect, useState } from "react";
-import { DeleteModal } from "../DeleteModal";
+import { DeleteRecipesModal } from "../DeleteModal";
+import { ViewRecipesModal } from "../ViewModal";
+import { EyeIcon } from "@/assets/icons/eye";
 
 type ListProps = {
   serverRecipes: Recipe[];
 };
 
-export type ModalState = {
+export type DeleteModalState = {
   isOpen: boolean;
   deleteId: number | null;
 };
 
+export type ViewModalState = {
+  isOpen: boolean;
+  recipe?: Recipe;
+};
+
 export default function RecipesList({ serverRecipes }: ListProps) {
   const [recipes, setRecipes] = useState<Recipe[]>(serverRecipes);
-  const [modal, setModal] = useState<ModalState>({
+  const [deleteModal, setDeleteModal] = useState<DeleteModalState>({
     isOpen: false,
     deleteId: null,
+  });
+  const [viewModal, setViewModal] = useState<ViewModalState>({
+    isOpen: false,
   });
 
   useEffect(() => {
@@ -49,11 +58,13 @@ export default function RecipesList({ serverRecipes }: ListProps) {
 
   return (
     <div className="flex flex-wrap">
-      <DeleteModal
-        modal={modal}
-        setModal={setModal}
+      <DeleteRecipesModal
+        modal={deleteModal}
+        setModal={setDeleteModal}
         removeRecipeFromState={removeRecipeFromState}
       />
+
+      <ViewRecipesModal modal={viewModal} setModal={setViewModal} />
 
       <div className="grid md:grid-cols-4 gap-4 mt-4">
         {recipes.map((recipe) => {
@@ -73,14 +84,23 @@ export default function RecipesList({ serverRecipes }: ListProps) {
               </p>
               <div className="flex justify-between items-center">
                 <p className="text-xs text-gray-500">{formattedCreatedAt}</p>
-                <button
-                  className="hover:bg-red-100 rounded-full w-7 h-7"
-                  onClick={() =>
-                    setModal({ isOpen: true, deleteId: recipe.id })
-                  }
-                >
-                  <TrashIcon className="w-5 m-auto text-red-500" />
-                </button>
+
+                <div>
+                  <button
+                    className="hover:bg-red-100 rounded-full w-7 h-7 mr-2"
+                    onClick={() => setViewModal({ isOpen: true, recipe })}
+                  >
+                    <EyeIcon className="w-6 m-auto text-red-500" />
+                  </button>
+                  <button
+                    className="hover:bg-red-100 rounded-full w-7 h-7"
+                    onClick={() =>
+                      setDeleteModal({ isOpen: true, deleteId: recipe.id })
+                    }
+                  >
+                    <TrashIcon className="w-6 m-auto text-red-500" />
+                  </button>
+                </div>
               </div>
             </div>
           );

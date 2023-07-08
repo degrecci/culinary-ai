@@ -3,16 +3,16 @@ import { Button } from "@/app/components/Button";
 import { Modal } from "@/app/components/Modal";
 import { TrashIcon } from "@/assets/icons/trash";
 import { supabaseClient } from "@/services/client";
-import { ModalState } from "../List";
+import { DeleteModalState } from "../List";
 import { Dispatch, SetStateAction } from "react";
 
 type DeleteModalProps = {
-  modal: ModalState;
-  setModal: Dispatch<SetStateAction<ModalState>>;
+  modal: DeleteModalState;
+  setModal: Dispatch<SetStateAction<DeleteModalState>>;
   removeRecipeFromState: (id: number | null) => void;
 };
 
-export const DeleteModal: React.FC<DeleteModalProps> = ({
+export const DeleteRecipesModal: React.FC<DeleteModalProps> = ({
   modal,
   setModal,
   removeRecipeFromState,
