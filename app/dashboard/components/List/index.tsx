@@ -76,31 +76,31 @@ export default function RecipesList({ serverRecipes }: ListProps) {
               className="bg-gray-100 p-6 rounded-lg flex flex-col"
               key={recipe.id}
             >
-              <h2 className="text-lg text-red-500 font-medium title-font mb-4">
-                {recipe.title}
-              </h2>
+              <div className="flex justify-between items-center mb-3">
+                <h2 className="text-lg text-red-500 font-medium title-font">
+                  {recipe.title}
+                </h2>
+                <button
+                  className="hover:bg-red-100 rounded-full w-8 h-8"
+                  onClick={() => setViewModal({ isOpen: true, recipe })}
+                >
+                  <EyeIcon className="w-7 m-auto text-red-500" />
+                </button>
+              </div>
               <p className="leading-relaxed text-base mb-3 grow">
                 {recipe.description}
               </p>
               <div className="flex justify-between items-center">
                 <p className="text-xs text-gray-500">{formattedCreatedAt}</p>
 
-                <div>
-                  <button
-                    className="hover:bg-red-100 rounded-full w-7 h-7 mr-2"
-                    onClick={() => setViewModal({ isOpen: true, recipe })}
-                  >
-                    <EyeIcon className="w-6 m-auto text-red-500" />
-                  </button>
-                  <button
-                    className="hover:bg-red-100 rounded-full w-7 h-7"
-                    onClick={() =>
-                      setDeleteModal({ isOpen: true, deleteId: recipe.id })
-                    }
-                  >
-                    <TrashIcon className="w-6 m-auto text-red-500" />
-                  </button>
-                </div>
+                <button
+                  className="hover:bg-red-100 rounded-full w-7 h-7"
+                  onClick={() =>
+                    setDeleteModal({ isOpen: true, deleteId: recipe.id })
+                  }
+                >
+                  <TrashIcon className="w-6 m-auto text-red-500" />
+                </button>
               </div>
             </div>
           );
