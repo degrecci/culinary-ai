@@ -7,7 +7,7 @@ export default function Account() {
     "w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out";
 
   return (
-    <div className="px-5 py-12">
+    <>
       <h2 className="text-lg font-semibold text-gray-700">Account infos</h2>
       <div className="md:w-1/4 mt-4">
         <label htmlFor="username" className="leading-7 text-sm text-gray-600">
@@ -15,6 +15,6 @@ export default function Account() {
         </label>
         <input value={user?.email} readOnly className={inputClasses} />
       </div>
-    </div>
+    </>
   );
 }

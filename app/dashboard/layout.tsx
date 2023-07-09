@@ -31,7 +31,9 @@ export default async function DashboardLayout({
           </Navbar.Item>
         </form>
       </Navbar>
-      {children}
+      <section className="text-gray-600 body-font">
+        <div className="md:container md:mx-auto px-5 py-8">{children}</div>
+      </section>
     </>
   );
 }
