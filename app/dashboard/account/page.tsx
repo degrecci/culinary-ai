@@ -1,19 +1,29 @@
-"use client";
-import { useUser } from "@/store/user";
+import { supabaseServer } from "@/services/server";
+import { cookies } from "next/headers";
+import { Form } from "./Form";
 
-export default function Account() {
-  const { user } = useUser();
-  const inputClasses =
-    "w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out";
+export const revalidate = 0;
+
+export default async function Account() {
+  const { data: track } = await supabaseServer({ cookies })
+    .from("track")
+    .select("*");
+
+  const MAX_ATTEMPTS_ALLOWED = Number(
+    process.env.NEXT_PUBLIC_MAX_ATTEMPTS_ALLOWED
+  );
 
   return (
     <>
-      <h2 className="text-lg font-semibold text-gray-700">Account infos</h2>
+      <h2 className="text-lg font-semibold text-gray-700">
+        Account information
+      </h2>
+      <p className="text-red-500 text-sm mt-5">
+        Attempts: <strong>{track ? track[0].attempts : 0}</strong> out of{" "}
+        <strong>{MAX_ATTEMPTS_ALLOWED}</strong>
+      </p>
       <div className="md:w-1/4 mt-4">
-        <label htmlFor="username" className="leading-7 text-sm text-gray-600">
-          E-mail
-        </label>
-        <input value={user?.email} readOnly className={inputClasses} />
+        <Form />
       </div>
     </>
   );
