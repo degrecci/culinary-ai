@@ -16,7 +16,7 @@ function showJsonList(json: Json) {
   }
 
   return Object.entries(json).map(([key, values]) => (
-    <li className="list-none text-sm mb-4" key={key}>
+    <li className="mb-4 list-none text-sm" key={key}>
       <strong>{capitalizeFirstLetter(key)}:</strong>
       <ul>
         {values.map((value: string, index: string) => (
@@ -43,7 +43,7 @@ function difficultyLevelColorClass(difficulty_level: string | null) {
 const ViewRecipe = ({ recipe }: Props) => {
   return (
     <div>
-      <h3 className="text-2xl font-bold mb-2 text-red-500">{recipe.title}</h3>
+      <h3 className="mb-2 text-2xl font-bold text-red-500">{recipe.title}</h3>
       <p className="text-md mb-4">{recipe.description}</p>
       <p className="text-sm">
         Difficult level:{" "}
@@ -59,7 +59,7 @@ const ViewRecipe = ({ recipe }: Props) => {
         Total time:{" "}
         <strong className="text-gray-600">{recipe.total_time}</strong>
       </p>
-      <p className="text-sm mb-4">
+      <p className="mb-4 text-sm">
         Serves: <strong className="text-gray-600">{recipe.serves}</strong>
       </p>
       <p className="text-md mb-2 font-semibold text-red-500">Ingredients</p>
@@ -67,7 +67,7 @@ const ViewRecipe = ({ recipe }: Props) => {
       <p className="text-md mb-2 font-semibold text-red-500">Instructions</p>
       {showJsonList(recipe.instructions)}
       <p className="text-md mb-2 font-semibold text-red-500">Tips</p>
-      <p className="text-sm mb-8">{recipe.tips_and_variations}</p>
+      <p className="mb-8 text-sm">{recipe.tips_and_variations}</p>
     </div>
   );
 };

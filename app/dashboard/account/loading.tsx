@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="w-full h-[calc(100vh-130px)] flex justify-center items-center text-red-500 text-lg">
+    <div className="flex h-[calc(100vh-130px)] w-full items-center justify-center text-lg text-red-500">
       Loading account information...
     </div>
   );

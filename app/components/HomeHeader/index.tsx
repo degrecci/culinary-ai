@@ -6,8 +6,8 @@ import { Navbar } from "../Navbar";
 
 export const HomeHeader = () => {
   return (
-    <header className="text-gray-600 bg-gray-100 body-font">
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <header className="body-font bg-gray-100 text-gray-600">
+      <div className="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row">
         <Link href="/">
           <Logo />
         </Link>
@@ -21,7 +21,7 @@ export const HomeHeader = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                className="w-4 h-4 ml-1"
+                className="ml-1 h-4 w-4"
                 viewBox="0 0 24 24"
               >
                 <path d="M5 12h14M12 5l7 7-7 7"></path>

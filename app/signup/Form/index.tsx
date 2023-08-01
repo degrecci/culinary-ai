@@ -61,7 +61,7 @@ export const SignupForm = () => {
   return (
     <form onSubmit={handleSubmit(handleSignUp)}>
       <div className="relative mb-4">
-        <label htmlFor="username" className="leading-7 text-sm text-gray-600">
+        <label htmlFor="username" className="text-sm leading-7 text-gray-600">
           Name
         </label>
         <input {...register("username")} type="text" className={inputClasses} />
@@ -70,7 +70,7 @@ export const SignupForm = () => {
         )}
       </div>
       <div className="relative mb-4">
-        <label htmlFor="email" className="leading-7 text-sm text-gray-600">
+        <label htmlFor="email" className="text-sm leading-7 text-gray-600">
           Email
         </label>
         <input {...register("email")} type="email" className={inputClasses} />
@@ -79,7 +79,7 @@ export const SignupForm = () => {
         )}
       </div>
       <div className="relative mb-4">
-        <label htmlFor="username" className="leading-7 text-sm text-gray-600">
+        <label htmlFor="username" className="text-sm leading-7 text-gray-600">
           Password
         </label>
         <input

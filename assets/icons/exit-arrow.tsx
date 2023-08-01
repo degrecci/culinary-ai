@@ -5,7 +5,7 @@ export const ExitIcon = (props: React.SVGProps<SVGSVGElement>) => (
     strokeLinecap="round"
     strokeLinejoin="round"
     strokeWidth="1.5"
-    className="w-5 h-5 ml-1"
+    className="ml-1 h-5 w-5"
     viewBox="0 0 24 24"
     {...props}
   >

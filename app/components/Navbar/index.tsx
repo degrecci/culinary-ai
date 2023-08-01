@@ -10,14 +10,14 @@ interface NavbarProps extends React.HTMLAttributes<HTMLDivElement> {
 const Navbar = ({ children, className, ...props }: NavbarProps) => {
   return (
     <header
-      className={`${className} text-gray-600 bg-gray-100 body-font`}
+      className={`${className} body-font bg-gray-100 text-gray-600`}
       {...props}
     >
-      <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+      <div className="container mx-auto flex flex-col flex-wrap items-center p-5 md:flex-row">
         <Link href="/dashboard">
           <Logo />
         </Link>
-        <nav className="md:ml-auto flex">{children}</nav>
+        <nav className="flex md:ml-auto">{children}</nav>
       </div>
     </header>
   );
@@ -29,7 +29,7 @@ interface NavBarItemProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Item = ({ children, ...props }: NavBarItemProps) => (
   <button
-    className="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0"
+    className="mt-4 inline-flex items-center rounded border-0 bg-gray-100 px-3 py-1 text-base hover:bg-gray-200 focus:outline-none md:mt-0"
     {...props}
   >
     {children}

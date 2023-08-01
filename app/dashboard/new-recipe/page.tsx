@@ -48,7 +48,7 @@ export default function NewRecipe() {
 
   if (isLoading) {
     return (
-      <p className="w-full h-[calc(100vh-130px)] flex justify-center items-center text-red-500 text-lg">
+      <p className="flex h-[calc(100vh-130px)] w-full items-center justify-center text-lg text-red-500">
         Generating new recipe...
       </p>
     );
@@ -59,13 +59,13 @@ export default function NewRecipe() {
       {!recipe && (
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="relative mb-4 md:w-2/6">
-            <label htmlFor="recipe" className="leading-7 text-sm text-gray-600">
+            <label htmlFor="recipe" className="text-sm leading-7 text-gray-600">
               My recipe will be about
             </label>
             <input
               {...register("recipe")}
               type="text"
-              className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-red-500 focus:ring-2 focus:ring-red-200"
               placeholder="Pie with chicken"
             />
             {errors.recipe && (

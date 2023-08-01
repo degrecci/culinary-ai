@@ -1,9 +1,9 @@
 import { ExitIcon } from "@/assets/icons/exit-arrow";
-import { Navbar } from "../components/Navbar";
 import Link from "next/link";
-import { supabaseServer } from "@/services/server";
+import { Navbar } from "../components/Navbar";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { supabaseServer } from "@/services/server";
 
 export default async function DashboardLayout({
   children,
@@ -27,12 +27,12 @@ export default async function DashboardLayout({
         <form action="/auth/signout" method="POST">
           <Navbar.Item type="submit">
             Sign Out
-            <ExitIcon className="w-5 h-5 ml-1" />
+            <ExitIcon className="ml-1 h-5 w-5" />
           </Navbar.Item>
         </form>
       </Navbar>
-      <section className="text-gray-600 body-font">
-        <div className="md:container md:mx-auto px-5 py-8">{children}</div>
+      <section className="body-font text-gray-600">
+        <div className="px-5 py-8 md:container md:mx-auto">{children}</div>
       </section>
     </>
   );

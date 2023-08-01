@@ -55,29 +55,29 @@ export default function SignIn() {
   const errorMessagesClasses = "text-xs text-red-600 mt-1";
 
   return (
-    <section className="text-gray-600 body-font">
-      <div className="container h-screen px-5 py-24 mx-auto flex flex-wrap items-center">
-        <div className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col lg:mr-auto w-full mt-10 md:mt-0 mx-auto">
+    <section className="body-font text-gray-600">
+      <div className="container mx-auto flex h-screen flex-wrap items-center px-5 py-24">
+        <div className="mx-auto mt-10 flex w-full flex-col rounded-lg bg-gray-100 p-8 md:mt-0 md:w-1/2 lg:mr-auto lg:w-2/6">
           <form onSubmit={handleSubmit(handleSignIn)}>
-            <div className="flex justify-center items-center mb-6">
+            <div className="mb-6 flex items-center justify-center">
               <Link href="/">
                 <Logo />
               </Link>
             </div>
-            <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
+            <h2 className="title-font mb-5 text-lg font-medium text-gray-900">
               Sign In
             </h2>
             <div className="relative mb-4">
               <label
                 htmlFor="email"
-                className="leading-7 text-sm text-gray-600"
+                className="text-sm leading-7 text-gray-600"
               >
                 Email
               </label>
               <input
                 {...register("email")}
                 type="email"
-                className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-red-500 focus:ring-2 focus:ring-red-200"
               />{" "}
               {errors.email && (
                 <p className={errorMessagesClasses}>{errors.email?.message}</p>
@@ -86,14 +86,14 @@ export default function SignIn() {
             <div className="relative mb-4">
               <label
                 htmlFor="password"
-                className="leading-7 text-sm text-gray-600"
+                className="text-sm leading-7 text-gray-600"
               >
                 Password
               </label>
               <input
                 {...register("password")}
                 type="password"
-                className="w-full bg-white rounded border border-gray-300 focus:border-red-500 focus:ring-2 focus:ring-red-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full rounded border border-gray-300 bg-white px-3 py-1 text-base leading-8 text-gray-700 outline-none transition-colors duration-200 ease-in-out focus:border-red-500 focus:ring-2 focus:ring-red-200"
               />
               {errors.password && (
                 <p className={errorMessagesClasses}>
@@ -104,7 +104,7 @@ export default function SignIn() {
             <Button className="w-full" type="submit" isLoading={isLoading}>
               Sign In
             </Button>
-            <p className="text-xs text-gray-500 mt-3">
+            <p className="mt-3 text-xs text-gray-500">
               {"Don't have an account? "}
               <Link href={PATHS.SIGNUP} className="text-red-600">
                 Sign up

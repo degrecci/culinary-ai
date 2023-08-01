@@ -18,11 +18,11 @@ export default async function Account() {
       <h2 className="text-lg font-semibold text-gray-700">
         Account information
       </h2>
-      <p className="text-red-500 text-sm mt-5">
+      <p className="mt-5 text-sm text-red-500">
         Attempts: <strong>{track ? track[0].attempts : 0}</strong> out of{" "}
         <strong>{MAX_ATTEMPTS_ALLOWED}</strong>
       </p>
-      <div className="md:w-1/4 mt-4">
+      <div className="mt-4 md:w-1/4">
         <Form />
       </div>
     </>

@@ -36,7 +36,7 @@ export const DeleteRecipesModal: React.FC<DeleteModalProps> = ({
       onClose={() => setModal({ isOpen: false, deleteId: null })}
     >
       <div className="flex flex-col items-center justify-center">
-        <TrashIcon className="w-10 text-gray-500 mb-4" />
+        <TrashIcon className="mb-4 w-10 text-gray-500" />
         <p className="text-base">
           Are you sure you want to delete this recipe? This action cannot be
           undone.

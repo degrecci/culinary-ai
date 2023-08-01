@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const Breadcrumb = ({ children }: { children: React.ReactNode }) => (
   <nav className="flex" aria-label="Breadcrumb">
-    <ol className="inline-flex items-center space-x-1 md:space-x-3 mb-6">
+    <ol className="mb-6 inline-flex items-center space-x-1 md:space-x-3">
       {children}
     </ol>
   </nav>
@@ -22,7 +22,7 @@ const Home = ({
         className="inline-flex items-center text-sm font-medium text-gray-700 hover:text-red-600 dark:text-gray-400 dark:hover:text-white"
       >
         <svg
-          className="w-3 h-3 mr-2.5"
+          className="mr-2.5 h-3 w-3"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -36,7 +36,7 @@ const Home = ({
     {!link && (
       <>
         <svg
-          className="w-3 h-3 mr-2.5"
+          className="mr-2.5 h-3 w-3"
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="currentColor"
@@ -54,7 +54,7 @@ const Item = ({ children }: { children: React.ReactNode }) => (
   <li aria-current="page">
     <div className="flex items-center">
       <svg
-        className="w-3 h-3 text-gray-400 mx-1"
+        className="mx-1 h-3 w-3 text-gray-400"
         aria-hidden="true"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -68,7 +68,7 @@ const Item = ({ children }: { children: React.ReactNode }) => (
           d="m1 9 4-4-4-4"
         />
       </svg>
-      <span className="ml-1 text-sm font-medium text-gray-500 md:ml-2 dark:text-gray-400">
+      <span className="ml-1 text-sm font-medium text-gray-500 dark:text-gray-400 md:ml-2">
         {children}
       </span>
     </div>

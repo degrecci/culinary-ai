@@ -8,7 +8,7 @@ export const Form = () => {
 
   return (
     <form>
-      <label htmlFor="username" className="leading-7 text-sm text-gray-600">
+      <label htmlFor="username" className="text-sm leading-7 text-gray-600">
         E-mail
       </label>
       <input value={user?.email} readOnly className={inputClasses} />

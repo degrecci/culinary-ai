@@ -66,40 +66,40 @@ export default function RecipesList({ serverRecipes }: ListProps) {
 
       <ViewRecipesModal modal={viewModal} setModal={setViewModal} />
 
-      <div className="grid md:grid-cols-4 gap-4 mt-4">
+      <div className="mt-4 grid gap-4 md:grid-cols-4">
         {recipes.map((recipe) => {
           const date = new Date(recipe.created_at as string);
           const formattedCreatedAt = date.toLocaleString();
 
           return (
             <div
-              className="bg-gray-100 p-6 rounded-lg flex flex-col"
+              className="flex flex-col rounded-lg bg-gray-100 p-6"
               key={recipe.id}
             >
-              <div className="flex justify-between items-center mb-3">
-                <h2 className="text-lg text-red-500 font-medium title-font">
+              <div className="mb-3 flex items-center justify-between">
+                <h2 className="title-font text-lg font-medium text-red-500">
                   {recipe.title}
                 </h2>
                 <button
-                  className="hover:bg-red-100 rounded-full w-8 h-8"
+                  className="h-8 w-8 rounded-full hover:bg-red-100"
                   onClick={() => setViewModal({ isOpen: true, recipe })}
                 >
-                  <EyeIcon className="w-7 m-auto text-red-500" />
+                  <EyeIcon className="m-auto w-7 text-red-500" />
                 </button>
               </div>
-              <p className="leading-relaxed text-base mb-3 grow">
+              <p className="mb-3 grow text-base leading-relaxed">
                 {recipe.description}
               </p>
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <p className="text-xs text-gray-500">{formattedCreatedAt}</p>
 
                 <button
-                  className="hover:bg-red-100 rounded-full w-7 h-7"
+                  className="h-7 w-7 rounded-full hover:bg-red-100"
                   onClick={() =>
                     setDeleteModal({ isOpen: true, deleteId: recipe.id })
                   }
                 >
-                  <TrashIcon className="w-6 m-auto text-red-500" />
+                  <TrashIcon className="m-auto w-6 text-red-500" />
                 </button>
               </div>
             </div>
