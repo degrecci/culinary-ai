@@ -1,10 +1,12 @@
 "use client";
+
+import { Dispatch, SetStateAction } from "react";
+
 import { Button } from "@/app/components/Button";
+import { DeleteModalState } from "../List";
 import { Modal } from "@/app/components/Modal";
 import { TrashIcon } from "@/assets/icons/trash";
 import { supabaseClient } from "@/services/client";
-import { DeleteModalState } from "../List";
-import { Dispatch, SetStateAction } from "react";
 
 type DeleteModalProps = {
   modal: DeleteModalState;
@@ -18,6 +20,10 @@ export const DeleteRecipesModal: React.FC<DeleteModalProps> = ({
   removeRecipeFromState,
 }) => {
   const handleDeleteRecipe = async (id: number | null) => {
+    if (!id) {
+      return;
+    }
+
     const { error } = await supabaseClient
       .from("recipes")
       .delete()
