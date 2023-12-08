@@ -11,5 +11,9 @@ describe("Navigation", () => {
 
     // The new page should contain an h1 with "Sign In page"
     cy.get("h2").contains("Sign In");
+
+    cy.get('input[name="email"]').type(Cypress.env("user_email"));
+    cy.get('input[name="password"]').type(Cypress.env("user_password"));
+    cy.get("#submit").click();
   });
 });

@@ -1,15 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { Logo } from "../components/Logo";
-import { PATHS } from "../paths";
 import { Button } from "../components/Button";
 import Link from "next/link";
+import { Logo } from "../components/Logo";
+import { PATHS } from "../paths";
 import { supabaseClient } from "@/services/client";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { useState } from "react";
 
 const validationSchema = z.object({
   email: z.string().email("Invalid email"),
@@ -101,7 +101,12 @@ export default function SignIn() {
                 </p>
               )}
             </div>
-            <Button className="w-full" type="submit" isLoading={isLoading}>
+            <Button
+              className="w-full"
+              type="submit"
+              isLoading={isLoading}
+              id="submit"
+            >
               Sign In
             </Button>
             <p className="mt-3 text-xs text-gray-500">
